@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
-from playlist_search import search_playlist_by_name, filter_playlist_by_duration
-from likes_views_analysis import get_likes_views_info
-from get_playlist_duration import get_playlist_duration
+from scripts.playlist_search import search_playlist_by_name, filter_playlist_by_duration
+from scripts.likes_views_analysis import get_likes_views_info
+from scripts.get_playlist_duration import get_playlist_duration
 
 app = Flask(__name__)
 

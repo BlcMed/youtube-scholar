@@ -1,6 +1,6 @@
 from googleapiclient.discovery import build
 import os
-from manipulate_duration import parse_duration
+from .manipulate_duration import parse_duration
 
 API_KEY = os.getenv("API_KEY")
 

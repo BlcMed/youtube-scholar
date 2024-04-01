@@ -1,6 +1,5 @@
 import re
 
-
 def parse_duration(duration):
     match = re.match("PT(\d+H)?(\d+M)?(\d+S)?", duration)
     if match:
