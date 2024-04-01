@@ -1,42 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube Playlist Analyzer</title>
 </head>
+
 <body>
     <h1>YouTube Playlist Analyzer</h1>
     <form action="/results" method="post">
-        <label for="tutorial_name">Tutorial Name:</label>
-        <input type="text" id="tutorial_name" name="tutorial_name"><br>
-        <input type="radio" id="query_type_search" name="query_type" value="search" checked>
-        <label for="query_type_search">Search for Playlists</label><br>
+
         <input type="radio" id="query_type_duration" name="query_type" value="duration">
         <label for="query_type_duration">Calculate Duration of Playlist</label><br>
         <div id="duration_fields" style="display: none;">
             <label for="playlist_id">Playlist ID:</label>
             <input type="text" id="playlist_id" name="playlist_id"><br>
         </div>
-        <label for="min_hours">Minimum Duration (hours):</label>
-        <input type="number" id="min_hours" name="min_hours" value="0"><br>
-        <label for="min_minutes">Minimum Duration (minutes):</label>
-        <input type="number" id="min_minutes" name="min_minutes" value="0"><br>
         
-        <label for="max_hours">Maximum Duration (hours):</label>
-        <input type="number" id="max_hours" name="max_hours" value="0"><br>
-        <label for="max_minutes">Maximum Duration (minutes):</label>
-        <input type="number" id="max_minutes" name="max_minutes" value="0"><br>
-        
+        <input type="radio" id="query_type_search" name="query_type" value="search">
+        <label for="query_type_search">Search for Playlists</label><br>
+        <div id="search_fields" style="display: none;">
+            <label for="tutorial_name">Tutorial Name:</label>
+            <input type="text" id="tutorial_name" name="tutorial_name"><br>
+
+            <label for="min_hours">Minimum Duration (hours):</label>
+            <input type="number" id="min_hours" name="min_hours" value="0"><br>
+            <label for="min_minutes">Minimum Duration (minutes):</label>
+            <input type="number" id="min_minutes" name="min_minutes" value="0"><br>
+            <label for="max_hours">Maximum Duration (hours):</label>
+            <input type="number" id="max_hours" name="max_hours" value="0"><br>
+            <label for="max_minutes">Maximum Duration (minutes):</label>
+            <input type="number" id="max_minutes" name="max_minutes" value="0"><br>
+        </div>
+
         <input type="submit" value="Search">
     </form>
     <script>
-        document.getElementById('query_type_duration').addEventListener('click', function() {
+        document.getElementById('query_type_duration').addEventListener('click', function () {
             document.getElementById('duration_fields').style.display = 'block';
+            document.getElementById('search_fields').style.display = 'none'; // Hide search fields
         });
-        document.getElementById('query_type_search').addEventListener('click', function() {
+        document.getElementById('query_type_search').addEventListener('click', function () {
             document.getElementById('duration_fields').style.display = 'none';
+            document.getElementById('search_fields').style.display = 'block'; // Show search fields
         });
     </script>
 </body>
+
 </html>
