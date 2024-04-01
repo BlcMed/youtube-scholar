@@ -22,12 +22,10 @@ def results():
         )
     elif query_type == "search":
         tutorial_name = request.form["tutorial_name"]
-
         min_hours = int(request.form["min_hours"])
         min_minutes = int(request.form["min_minutes"])
         max_hours = int(request.form["max_hours"])
         max_minutes = int(request.form["max_minutes"])
-
         min_duration = min_hours * 3600 + min_minutes * 60
         max_duration = max_hours * 3600 + max_minutes * 60
 
@@ -87,7 +85,6 @@ def results():
         return render_template(
             "results.html", query_type=query_type, playlists=playlists_data
         )
-
 
 if __name__ == "__main__":
     app.run(debug=True)

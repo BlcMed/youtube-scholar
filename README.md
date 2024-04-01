@@ -12,6 +12,15 @@ To address this limitation, the YouTube Playlist Analyzer project introduces a m
 - **Likes/Views Ratio Sorting**: Playlists are sorted based on their likes/views ratio, allowing users to discover high-quality content regardless of the channel's popularity.
 - **Flask Web Interface**: The project provides a minimalistic web interface built with Flask, making it easy for users to search for playlists and view the results.
 
+### Additional Features
+
+- **Calculate Duration of a Given Playlist**: Users can quickly calculate the overall duration of a specific playlist. If a playlist is found, this feature provides a convenient way to determine its total duration.
+
+### Future Enhancements
+
+- **Comment Analysis**: Analyze comments within playlists to provide insights into user feedback, sentiment analysis, and topic relevance.
+- **Language and Accent Filtering**: Implement features to filter playlists based on the language of the content and accents of the speakers. This will help users find content in their preferred language or accent.
+
 ## Getting Started
 
 ### Prerequisites

@@ -21,4 +21,4 @@ def get_playlist_duration(playlist_id):
         duration = video_response["items"][0]["contentDetails"]["duration"]
         total_duration += parse_duration(duration)
 
-    return format_duration(total_duration)  # total_duration
+    return format_duration(total_duration)

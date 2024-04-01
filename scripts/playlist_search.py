@@ -35,6 +35,15 @@ def filter_playlist_by_duration(playlist_id, min_duration=None, max_duration=Non
     if max_duration and total_duration > max_duration:
         return False
 
+    def filter_playlist_by_language():
+        pass
+
+    def filter_playlist_by_accent():
+        pass
+
+    def filter_playlist_by_comments():
+        pass
+
     return True
 
 
