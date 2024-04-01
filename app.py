@@ -21,13 +21,13 @@ def results():
 
         min_hours = int(request.form['min_hours'])
         min_minutes = int(request.form['min_minutes'])
-        min_seconds = int(request.form['min_seconds'])
+        #min_seconds = int(request.form['min_seconds'])
         max_hours = int(request.form['max_hours'])
         max_minutes = int(request.form['max_minutes'])
-        max_seconds = int(request.form['max_seconds'])
+        #max_seconds = int(request.form['max_seconds'])
 
-        min_duration = min_hours * 3600 + min_minutes * 60 + min_seconds
-        max_duration = max_hours * 3600 + max_minutes * 60 + max_seconds
+        min_duration = min_hours * 3600 + min_minutes * 60 #+ min_seconds
+        max_duration = max_hours * 3600 + max_minutes * 60 #+ max_seconds
 
         # Search for playlists containing the tutorial name
         playlists = search_playlist_by_name(tutorial_name)
@@ -61,7 +61,7 @@ def results():
                 'link': f"https://www.youtube.com/playlist?list={playlist_info['playlist_id']}",
                 'top_videos': playlist_info['top_videos'],
                 'duration': playlist_info['duration'],
-                'likes_ratio': playlist_info['average_ratio']
+                'likes_ratio': round(playlist_info['average_ratio'] * 100, 2)
             }
             playlists_data.append(playlist_data)
 

@@ -15,7 +15,7 @@ def format_duration(seconds):
     minutes = (seconds % 3600) // 60
     seconds = seconds % 60
 
-    formatted_duration = 'Duration : '
+    formatted_duration = ''
     if hours > 0:
         formatted_duration += f'{hours} hours, '
     if minutes > 0:
@@ -23,4 +23,4 @@ def format_duration(seconds):
     if seconds > 0:
         formatted_duration += f' {seconds} seconds '
 
-    return formatted_duration if formatted_duration != 'Duration : ' else 'Duration : 0 seconds'
+    return formatted_duration if formatted_duration != '' else '0 seconds'

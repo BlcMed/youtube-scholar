@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
     <h1>Search Results</h1>
@@ -12,16 +26,37 @@
     {% elif query_type == 'search' %}
         <h2>Search Results</h2>
         {% if playlists %}
-            <ul>
+            <table>
+                <tr>
+                    <th>Playlist ID</th>
+                    <th>Top Videos</th>
+                    <th>Duration</th>
+                    <th>Likes Ratio (%)</th>
+                </tr>
                 {% for playlist in playlists %}
-                    <li>
-                        <a href="{{ playlist.link }}">{{ playlist.playlist_id }}</a> - 
-                        Title: {{ playlist.title }} - 
-                        Duration: {{ playlist.duration }} - 
-                        Likes Ratio: {{ playlist.likes_ratio }}
-                    </li>
+                    <tr>
+                        <td><a href="{{ playlist.link }}">{{ playlist.playlist_id }}</a></td>
+                        <td>
+                            <table class="subtable">
+                                <tr>
+                                    <th>Video</th>
+                                    <th>Likes</th>
+                                    <th>Views</th>
+                                </tr>
+                                {% for video in playlist.top_videos %}
+                                    <tr>
+                                        <td><a href="https://www.youtube.com/watch?v={{ video.video_id }}">{{ video.video_id }}</a></td>
+                                        <td>{{ video.likes }}</td>
+                                        <td>{{ video.views }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </td>
+                        <td>{{ playlist.duration }}</td>
+                        <td>{{ playlist.likes_ratio }}%</td>
+                    </tr>
                 {% endfor %}
-            </ul>
+            </table>
         {% else %}
             <p>{{ message }}</p>
         {% endif %}
