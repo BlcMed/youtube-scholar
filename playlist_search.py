@@ -1,6 +1,6 @@
 from googleapiclient.discovery import build
 import os
-import re
+from manipulate_duration import parse_duration
 
 API_KEY = os.getenv("API_KEY")
 
@@ -29,15 +29,15 @@ def filter_playlist_by_duration(playlist_id, min_duration=None, max_duration=Non
     
     return True
 
-def parse_duration(duration):
-    match = re.match('PT(\d+H)?(\d+M)?(\d+S)?', duration)
-    if match:
-        hours = int(match.group(1)[:-1]) if match.group(1) else 0
-        minutes = int(match.group(2)[:-1]) if match.group(2) else 0
-        seconds = int(match.group(3)[:-1]) if match.group(3) else 0
-        return hours * 3600 + minutes * 60 + seconds
-    else:
-        return 0
+# def parse_duration(duration):
+#     match = re.match('PT(\d+H)?(\d+M)?(\d+S)?', duration)
+#     if match:
+#         hours = int(match.group(1)[:-1]) if match.group(1) else 0
+#         minutes = int(match.group(2)[:-1]) if match.group(2) else 0
+#         seconds = int(match.group(3)[:-1]) if match.group(3) else 0
+#         return hours * 3600 + minutes * 60 + seconds
+#     else:
+#         return 0
 
 # Exemple usage:
 # playlists = search_playlist_by_name("Java tutorial")

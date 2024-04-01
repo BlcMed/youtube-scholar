@@ -7,14 +7,24 @@
 </head>
 <body>
     <h1>Search Results</h1>
-    {% if playlists %}
-        <ul>
-            {% for playlist in playlists %}
-                <li><a href="{{ playlist.link }}">{{ playlist.playlist_id }}</a></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>{{ message }}</p>
+    {% if query_type == 'duration' %}
+        <p>Total Duration: {{ total_duration }}</p>
+    {% elif query_type == 'search' %}
+        <h2>Search Results</h2>
+        {% if playlists %}
+            <ul>
+                {% for playlist in playlists %}
+                    <li>
+                        <a href="{{ playlist.link }}">{{ playlist.playlist_id }}</a> - 
+                        Title: {{ playlist.title }} - 
+                        Duration: {{ playlist.duration }} - 
+                        Likes Ratio: {{ playlist.likes_ratio }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>{{ message }}</p>
+        {% endif %}
     {% endif %}
 </body>
 </html>
