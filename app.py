@@ -1,5 +1,10 @@
 from flask import Flask, render_template, request
-from scripts.playlist_search import search_playlist_by_name, filter_playlist_by_duration
+from scripts.playlist_search import (
+    search_playlist_by_name,
+    filter_playlist_by_duration,
+    filter_playlist_by_language,
+    get_most_used_language,
+)
 from scripts.likes_views_analysis import get_likes_views_info
 from scripts.get_playlist_duration import get_playlist_duration
 
@@ -28,6 +33,7 @@ def results():
         max_minutes = int(request.form["max_minutes"])
         min_duration = min_hours * 3600 + min_minutes * 60
         max_duration = max_hours * 3600 + max_minutes * 60
+        target_language = request.form["target_language"]
 
         # Search for playlists containing the tutorial name
         playlists = search_playlist_by_name(tutorial_name)
@@ -53,14 +59,26 @@ def results():
                 message="No playlists found matching the criteria.",
             )
 
+        # Filter playlists based on language
+        filtered_playlists = []
+        for playlist in playlists:
+            playlist_id = playlist["id"]["playlistId"]
+            if not target_language or filter_playlist_by_language(
+                playlist_id, target_language=target_language
+            ):
+                filtered_playlists.append(playlist_id)
+
         # Get likes/views info for each filtered playlist
         playlist_likes_views_info = []
         for playlist_id in filtered_playlists:
-            top_videos, average_ratio = get_likes_views_info(playlist_id)
+            playlist_title, top_videos, average_ratio = get_likes_views_info(
+                playlist_id
+            )
             duration = get_playlist_duration(playlist_id)  # Fetch duration of playlist
             playlist_likes_views_info.append(
                 {
                     "playlist_id": playlist_id,
+                    "playlist_title": playlist_title,
                     "top_videos": top_videos,
                     "average_ratio": average_ratio,
                     "duration": duration,
@@ -75,8 +93,17 @@ def results():
         for playlist_info in playlist_likes_views_info:
             playlist_data = {
                 "playlist_id": playlist_info["playlist_id"],
+                "playlist_title": playlist_info["playlist_title"],
                 "link": f"https://www.youtube.com/playlist?list={playlist_info['playlist_id']}",
-                "top_videos": playlist_info["top_videos"],
+                "top_videos": [
+                    {
+                        "video_id": video_info["video_id"],
+                        "video_title": video_info["video_title"],
+                        "likes": video_info["likes"],
+                        "views": video_info["views"],
+                    }
+                    for video_info in playlist_info["top_videos"]
+                ],
                 "duration": playlist_info["duration"],
                 "likes_ratio": round(playlist_info["average_ratio"] * 100, 2),
             }
@@ -85,6 +112,7 @@ def results():
         return render_template(
             "results.html", query_type=query_type, playlists=playlists_data
         )
+
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,70 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results</title>
     <style>
-        table {
-            width: 100%;
+        table, th, td {
+            border: 1px solid black;
             border-collapse: collapse;
+            padding: 5px;
         }
-
-        th,
-        td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
         th {
             background-color: #f2f2f2;
         }
+        .subtable th {
+            background-color: #d3d3d3;
+        }
     </style>
 </head>
-
 <body>
     <h1>Search Results</h1>
     {% if query_type == 'duration' %}
-    <p>Total Duration: {{ total_duration }}</p>
+        <p>Total Duration: {{ total_duration }}</p>
     {% elif query_type == 'search' %}
-    {% if playlists %}
-    <table>
-        <tr>
-            <th>Playlist ID</th>
-            <th>Top Videos</th>
-            <th>Duration</th>
-            <th>Likes Ratio (%)</th>
-        </tr>
-        {% for playlist in playlists %}
-        <tr>
-            <td><a href="{{ playlist.link }}">{{ playlist.playlist_id }}</a></td>
-            <td>
-                <table class="subtable">
+        {% if playlists %}
+            <table>
+                <tr>
+                    <th>Playlist Title</th>
+                    <th>Top Videos</th>
+                    <th>Duration</th>
+                    <th>Likes Ratio (%)</th>
+                </tr>
+                {% for playlist in playlists %}
                     <tr>
-                        <th>Video</th>
-                        <th>Likes</th>
-                        <th>Views</th>
+                        <td><a href="https://www.youtube.com/playlist?list={{ playlist.playlist_id }}">{{ playlist.playlist_title }}</a></td>
+                        <td>
+                            <table class="subtable">
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Likes</th>
+                                    <th>Views</th>
+                                </tr>
+                                {% for video in playlist.top_videos %}
+                                    <tr>
+                                        <td><a href="https://www.youtube.com/watch?v={{ video.video_id }}">{{ video.video_title }}</a></td>
+                                        <td>{{ video.likes }}</td>
+                                        <td>{{ video.views }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </td>
+                        <td>{{ playlist.duration }}</td>
+                        <td>{{ playlist.likes_ratio }}%</td>
                     </tr>
-                    {% for video in playlist.top_videos %}
-                    <tr>
-                        <td><a href="https://www.youtube.com/watch?v={{ video.video_id }}">{{ video.video_id }}</a></td>
-                        <td>{{ video.likes }}</td>
-                        <td>{{ video.views }}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            </td>
-            <td>{{ playlist.duration }}</td>
-            <td>{{ playlist.likes_ratio }}%</td>
-        </tr>
-        {% endfor %}
-    </table>
-    {% else %}
-    <p>{{ message }}</p>
-    {% endif %}
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>{{ message }}</p>
+        {% endif %}
     {% endif %}
 </body>
-
 </html>
