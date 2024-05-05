@@ -74,3 +74,8 @@ To address this limitation, the YouTube Playlist Analyzer project introduces a m
 ## Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests to improve the project.
+
+## License
+
+This project is licensed under the terms of the [GNU Lesser General Public License v3.0](LICENSE), a copy of which is included in the repository.
+
